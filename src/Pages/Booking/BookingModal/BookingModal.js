@@ -49,7 +49,7 @@ const BookingModal = ({openBooking, handleBookingClose, timeSlot, date, setBooki
   }
     // send to the server
 
-    fetch('http://localhost:5000/appointments', {
+    fetch('https://arcane-springs-99737.herokuapp.com/appointments', {
       method: 'POST',
       headers: {
           'content-type': 'application/json'
