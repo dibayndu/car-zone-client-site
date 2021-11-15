@@ -13,6 +13,7 @@ import { Button, CardActionArea, CardActions, Grid } from '@mui/material';
 
 
 import './Home.css'
+import Review from '../Review/Review';
 const Home = () => {
     const [products,setProducts] = useState();
     useEffect(() => {    
@@ -66,6 +67,7 @@ const Home = () => {
             
             <Services></Services>
             <BookingBanner></BookingBanner>
+            
         
         </Container>
     );

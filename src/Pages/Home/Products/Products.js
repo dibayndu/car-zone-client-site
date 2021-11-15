@@ -5,6 +5,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions, Container, Grid } from '@mui/material';
 import Navigation from '../../Shared/Navigation/Navigation';
+import Product from '../../../Product';
+import { Link } from 'react-router-dom';
 
 const Products = () => {
     const [products,setProducts] = useState();
@@ -17,6 +19,11 @@ const Products = () => {
     
     }, [])
     console.log(products);
+
+    const productDetails = (id) => {
+        console.log(id);
+        <Product id={id}/>
+    }
     
     return (
         <Container>
@@ -47,8 +54,10 @@ const Products = () => {
            </CardContent>
          </CardActionArea>
          <CardActions>
-           <Button size="small" color="primary">
-             Buy Now
+           <Button size="small" color="primary" onClick={() => productDetails(item._id)}>
+             <Link to={id => `product/${item._id}`}>
+                Buy Now
+             </Link>
            </Button>
          </CardActions>
        </Card>

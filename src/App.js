@@ -15,6 +15,7 @@ import Dashboard from './Pages/Dashboard/Dashboard/Dashboard';
 import Footer from './Pages/Footer/Footer';
 import Products from './Pages/Home/Products/Products';
 import Navigation from './Pages/Shared/Navigation/Navigation';
+import Product from './Product';
 
 
 function App() {
@@ -41,6 +42,9 @@ function App() {
             </Route>
             <Route path="/products">
               <Products />
+            </Route>
+            <Route path="/product/:id">
+              <Product />
             </Route>
             <Route exact path="/">
               <Home />
