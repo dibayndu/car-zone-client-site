@@ -7,8 +7,10 @@ import { Button, CardActionArea, CardActions, Container, Grid } from '@mui/mater
 import Navigation from '../../Shared/Navigation/Navigation';
 import Product from '../../../Product';
 import { Link } from 'react-router-dom';
+import useAuth from '../../../Hook/useAuth';
 
 const Products = () => {
+  const {user} = useAuth();
     const [products,setProducts] = useState();
     useEffect(() => {    
         fetch('https://arcane-springs-99737.herokuapp.com/products')
@@ -18,8 +20,7 @@ const Products = () => {
         )
     
     }, [])
-    console.log(products);
-
+    
     const productDetails = (id) => {
         console.log(id);
         <Product id={id}/>
@@ -32,7 +33,7 @@ const Products = () => {
         <Grid sx={{p:3}} container spacing={2}>
         {products?.map(item => (
            
-        <Grid item xs={4}>
+        <Grid item xs={12} md = {4}>
          <Card sx={{ maxWidth: 345 }}>
          <CardActionArea>
            <CardMedia
@@ -52,14 +53,17 @@ const Products = () => {
                Price:{item.price}
              </Typography>
            </CardContent>
-         </CardActionArea>
-         <CardActions>
-           <Button size="small" color="primary" onClick={() => productDetails(item._id)}>
-             <Link to={id => `product/${item._id}`}>
-                Buy Now
-             </Link>
-           </Button>
-         </CardActions>
+          </CardActionArea>
+          <CardActions>
+            <Button size="small" color="success" onClick={() => productDetails(item._id)
+            } variant="contained">
+              <Link to={id => `product/${item._id}`}>
+                  Buy Now
+              </Link>
+              
+            </Button>
+            
+          </CardActions>
        </Card>
   </Grid>
     ))}

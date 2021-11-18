@@ -16,6 +16,7 @@ import Footer from './Pages/Footer/Footer';
 import Products from './Pages/Home/Products/Products';
 import Navigation from './Pages/Shared/Navigation/Navigation';
 import Product from './Product';
+import Orders from './Pages/orders/Orders';
 
 
 function App() {
@@ -30,6 +31,9 @@ function App() {
             </PrivateRoute>
             <PrivateRoute path="/dashboard">
               <Dashboard />
+            </PrivateRoute>
+            <PrivateRoute path="/orders">
+              <Orders />
             </PrivateRoute>
             <Route path="/home">
               <Home />

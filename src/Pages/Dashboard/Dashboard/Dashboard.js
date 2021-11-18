@@ -57,6 +57,9 @@ function Dashboard(props) {
       <br/>
       <Link to={`${url}`} style={{textDecoration:'none',color:'white'}}><Button style={{color:"black", textDecoration: 'none'}} color="inherit">Dashboard</Button></Link>
       <br/>
+      <Link to="/orders" style={{textDecoration:'none',color:'white'}}><Button style={{color:"black", textDecoration: 'none'}} color="inherit">Orders</Button></Link>
+      <br/>
+      
       {admin && <Box>
                 <Link to={`${url}/makeAdmin`} style={{textDecoration:'none',color:'black'}}><Button color="inherit">Make Admin</Button></Link>
                 <br/>
