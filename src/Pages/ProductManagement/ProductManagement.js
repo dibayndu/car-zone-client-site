@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import useAuth from '../../Hook/useAuth';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,21 +9,19 @@ import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-const Orders = () => {
-    const { user } = useAuth();
-    const [orders, setOrders] = useState([])
+const ProductManagement = () => {
+    const [products, setProducts] = useState([])
     useEffect(() => {
-        const url = `https://arcane-springs-99737.herokuapp.com/orders/${user.email}`
+        const url = `https://arcane-springs-99737.herokuapp.com/products`
         fetch(url)
             .then(res => res.json())
-            .then(data => setOrders(data));
-    }, [orders])
-    console.log(orders)
+            .then(data => setProducts(data));
+    }, [products])
     const handleUserOrder = id => {
         console.log(id)
         const confirmDelete = window.confirm('Are you sure to delete it?');
         if(confirmDelete) {
-            const url = `https://arcane-springs-99737.herokuapp.com/orders/${id}`;
+            const url = `https://arcane-springs-99737.herokuapp.com/products/${id}`;
             fetch(url, {
                 method: 'DELETE',
             })
@@ -38,7 +35,6 @@ const Orders = () => {
     }
     return (
         <div>
-            <h2>My Orders: {orders.length}</h2>
             <TableContainer component={Paper}>
                 <Table sx={{}} aria-label="Appointments table">
                     <TableHead>
@@ -50,17 +46,17 @@ const Orders = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {orders.map((row) => (
+                        {products.map((row) => (
                             <TableRow
                                 key={row._id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row">
-                                    {row.name}
+                                   <img style={{width: "200px", height: "200px"}} src= {row.picture} alt="" />
                                 </TableCell>
-                                <TableCell align="right">{row.user}</TableCell>
-                                <TableCell align="right">{row.email}</TableCell>
-                                {/* <TableCell align="right">{row.fat}</TableCell> */}
+                                <TableCell align="right">{row.name}</TableCell>
+                                <TableCell align="right">{row.price}</TableCell>
+                                
                                 <TableCell align="right"><Button onClick={() => handleUserOrder(row._id)}><DeleteForeverIcon /></Button></TableCell>
                             </TableRow>
                         ))}
@@ -71,4 +67,4 @@ const Orders = () => {
     );
 };
 
-export default Orders;
+export default ProductManagement;

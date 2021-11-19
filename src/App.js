@@ -44,12 +44,12 @@ function App() {
             <Route path="/register">
               <Register />
             </Route>
-            <Route path="/products">
+            <PrivateRoute path="/products">
               <Products />
-            </Route>
-            <Route path="/product/:id">
+            </PrivateRoute>
+            <PrivateRoute path="/product/:id">
               <Product />
-            </Route>
+            </PrivateRoute>
             <Route exact path="/">
               <Home />
               </Route>

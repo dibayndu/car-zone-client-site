@@ -96,10 +96,8 @@ const [token, setToken] = useState('');
         setIsLoading(true);
         signOut(auth).then(()=>{
             // Sign-out successful.
-        }).catch((error)=>{
-            // An error happened.
         })
-        .fanally(() => setIsLoading(false));
+        .finally(() => setIsLoading(false));
         }
         const saveUser = (email, displayName, method) => {
             const user = { email, displayName };

@@ -33,6 +33,13 @@ import MakeAdmin from '../MakeAdmin/MakeAdmin';
 import useAuth from '../../../Hook/useAuth';
 import AdminRoute from '../../Login/AdminRoute/AdminRoute';
 import AddService from '../AddService/AddService';
+import PrivateRoute from '../../Login/PrivateRoute/PrivateRoute';
+import Payment from '../../Payment/Payment';
+import Orders from '../../orders/Orders';
+import Navigation from '../../Shared/Navigation/Navigation';
+import AllOrders from '../../AllOrders/AllOrders';
+import ProductManagement from '../../ProductManagement/ProductManagement';
+import MakeReview from './MakeReview';
 
 
 const drawerWidth = 240;
@@ -41,7 +48,7 @@ function Dashboard(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   let { path, url } = useRouteMatch();
-  const { admin } = useAuth();
+  const { admin, logOut } = useAuth();
   const [date, setDate] = React.useState(new Date())
  
 
@@ -51,29 +58,47 @@ function Dashboard(props) {
 
   const drawer = (
     <div>
-      <Toolbar />
-      <Divider />
-      <Link to="/booking" style={{textDecoration:'none',color:'white'}}><Button style={{color:"black", textDecoration: 'none'}} color="inherit">Book Your Service</Button></Link>
-      <br/>
-      <Link to={`${url}`} style={{textDecoration:'none',color:'white'}}><Button style={{color:"black", textDecoration: 'none'}} color="inherit">Dashboard</Button></Link>
-      <br/>
-      <Link to="/orders" style={{textDecoration:'none',color:'white'}}><Button style={{color:"black", textDecoration: 'none'}} color="inherit">Orders</Button></Link>
-      <br/>
       
-      {admin && <Box>
-                <Link to={`${url}/makeAdmin`} style={{textDecoration:'none',color:'black'}}><Button color="inherit">Make Admin</Button></Link>
-                <br/>
-                <Link to={`${url}/addDoctor`} style={{textDecoration:'none',color:'black'}}><Button color="inherit">Add Service</Button></Link>
-            </Box>}
-            <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+      <Toolbar />
+      
+      <Divider />  
+      <List>
+          {
+            !admin && <Box>
+              <ListItem button key={'myorder'}>
+                <Link style={{textDecoration:"none",color: "black"}} to={`${url}/orders`}><ListItemText primary={'My Orders'} /></Link>
+              </ListItem>
+              <ListItem button key={'Payment'}>
+                <Link style={{textDecoration:"none", color: "black"}} to={`${url}/Payment`}><ListItemText primary={'Payment'} /></Link>
+              </ListItem>
+              
+              <ListItem button key={'review'}>
+                <Link style={{textDecoration:"none",color: "black"}} to={`${url}/postreview`}><ListItemText primary={'Review'} /></Link>
+              </ListItem>
+              <ListItem style={{textDecoration:"none",color: "black"}} button key={'logOut'}>
+                <Button onClick={logOut}><ListItemText primary={'LogOut'} /></Button>
+              </ListItem>
+            </Box>
+          }
+          {
+            admin && <Box>
+              <ListItem button key={'addNewWatch'}>
+                <Link style={{textDecoration:"none",color: "black"}} to={`${url}/addNewProduct`}><ListItemText primary={'Add New Product'} /></Link>
+              </ListItem>
+              <ListItem button key={'manageAllOrder'}>
+                <Link style={{textDecoration:"none",color: "black"}} to={`${url}/manageorder`}><ListItemText primary={'Manage All Order'} /></Link>
+              </ListItem>
+              <ListItem style={{textDecoration:"none"}} button key={'manageproducts'}>
+                <Link style={{textDecoration:"none",color: "black"}} to={`${url}/manageproducts`}><ListItemText primary={'Manage Products'} /></Link>
+              </ListItem>
+              <ListItem button key={'manageAllOrder'}>
+                <Link style={{textDecoration:"none",color: "black"}} to={`${url}/MakeAdmin`}><ListItemText primary={'Make Admin'} /></Link>
+              </ListItem> 
+              <ListItem style={{textDecoration:"none",color: "black"}} button key={'logout'}>
+                <Button onClick={logOut}><ListItemText primary={'LogOut'} /></Button>
+              </ListItem>
+            </Box>
+          }   
       </List>
       <Divider />
       
@@ -105,6 +130,10 @@ function Dashboard(props) {
           <Typography variant="h6" noWrap component="div">
             Dashboard
           </Typography>
+          <Link style={{textDecoration:"none",color: "white"}} to={`/home`}><Typography style={{marginLeft:"10px"}} variant="h6" noWrap component="div">
+            Home
+          </Typography></Link>
+          
         </Toolbar>
       </AppBar>
       <Box
@@ -146,10 +175,27 @@ function Dashboard(props) {
         <Toolbar />
         <Switch>
         <Route exact path={path}>
-          <DashboardHome></DashboardHome>
+          <h1>Your all required things in this DashBoard</h1>
         </Route>
+        <PrivateRoute path={`${url}/Payment`}>
+          <Payment></Payment>
+        </PrivateRoute>
+        <PrivateRoute path={`${url}/orders`}>
+          <Orders></Orders>
+        </PrivateRoute>
+        <PrivateRoute path={`${url}/postreview`}>
+          <MakeReview></MakeReview>
+        </PrivateRoute>
+
+        <AdminRoute path={`${url}/manageorder`}>
+          <AllOrders></AllOrders>
+        </AdminRoute>
         <AdminRoute path={`${path}/makeAdmin`}>
           <MakeAdmin></MakeAdmin>
+        </AdminRoute>
+        
+        <AdminRoute path={`${url}/manageproducts`}>
+          <ProductManagement></ProductManagement>
         </AdminRoute>
         <AdminRoute path={`${path}/addService`}>
           <AddService></AddService>

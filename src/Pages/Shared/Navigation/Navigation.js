@@ -23,7 +23,15 @@ const Navigation = () => {
             aria-label="menu"
             sx={{ mr: 2 }}
           >
-            <MenuIcon />
+            {
+              user?.email ?
+              <NavLink style={{ textDecoration: 'none', color: 'white' }} to="/dashboard">
+                <Button color="inherit">Dashboard</Button>
+               </NavLink>
+               :
+               <MenuIcon />
+
+              }
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
            Car's Zone
@@ -38,9 +46,7 @@ const Navigation = () => {
           {
                         user?.email ?
                             <Box>
-                                <NavLink style={{ textDecoration: 'none', color: 'white' }} to="/dashboard">
-                                    <Button color="inherit">Dashboard</Button>
-                                </NavLink>
+                                
                                 <Button onClick={logOut} color="inherit">Logout</Button>
                             </Box>
                             :

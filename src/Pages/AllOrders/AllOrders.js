@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import useAuth from '../../Hook/useAuth';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,11 +9,10 @@ import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-const Orders = () => {
-    const { user } = useAuth();
+const AllOrders = () => {
     const [orders, setOrders] = useState([])
     useEffect(() => {
-        const url = `https://arcane-springs-99737.herokuapp.com/orders/${user.email}`
+        const url = `https://arcane-springs-99737.herokuapp.com/orders`
         fetch(url)
             .then(res => res.json())
             .then(data => setOrders(data));
@@ -71,4 +69,4 @@ const Orders = () => {
     );
 };
 
-export default Orders;
+export default AllOrders;

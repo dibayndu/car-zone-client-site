@@ -13,6 +13,7 @@ import { Button, CardActionArea, CardActions, Grid } from '@mui/material';
 import './Home.css'
 import Product from '../../../Product';
 import { Link } from 'react-router-dom';
+import Review from '../../../Review/Review';
 
 const Home = () => {
   const [products,setProducts] = useState();
@@ -74,7 +75,7 @@ const Home = () => {
             
             <Services></Services>
             <BookingBanner></BookingBanner>
-            
+            <Review />
         
         </Container>
     );
